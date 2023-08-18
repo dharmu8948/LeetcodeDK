@@ -34,10 +34,17 @@ public:
     }
     vector<int> searchRange(vector<int>& nums, int target) {
         vector<int> res;
-        int ans1 = firstOccur(nums, target);
-        int ans2 = lastOccur(nums, target);
-        res.push_back(ans1);
-        res.push_back(ans2);
-        return res;
+        // first approach using our own function
+
+       // int ans1 = firstOccur(nums, target);
+        //int ans2 = lastOccur(nums, target);
+
+        // approach 2 : using STL inbuilt function
+        int startingPosition = lower_bound(nums.begin(), nums.end(), target) - nums.begin();
+        int endingPosition = lower_bound(nums.begin(), nums.end(), target+1) - nums.begin() - 1;
+        if(startingPosition < nums.size() && nums[startingPosition] == target){
+            return {startingPosition, endingPosition};
+        }
+        return {-1, -1};
     }
 };
