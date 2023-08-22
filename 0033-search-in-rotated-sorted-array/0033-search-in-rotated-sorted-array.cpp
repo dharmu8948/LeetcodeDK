@@ -1,6 +1,6 @@
 class Solution {
 public:
-   int binarySearch(vector<int>& nums, int target, int start, int end) {
+    int binarySearch(vector<int>& nums, int target, int start, int end) {
        while(start<=end) {
            int mid = start + (end - start)/2;
            if(nums[mid] == target)
