@@ -13,7 +13,12 @@ public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
          int len = 0;
          ListNode* temp = head;
+         ListNode* fast = head;
          while(temp) {
+              // making fast nth node from first
+             if(len<n) {
+                 fast = fast->next;
+             }
              len++;
              temp = temp->next;
          }
@@ -29,16 +34,25 @@ public:
     }
     else
     {
-        // Remove len - n th node from starting
-        int diff = len - n;         
-        ListNode* prev= NULL;      
-        ListNode* curr = head;        
-        for(int i = 0;i < diff;i++){
-            prev = curr;           
-            curr = curr->next;     
+        temp = head;
+       // once fast getting null temp will point to that node which we need to delete
+        while(fast) {
+            fast = fast -> next;
+            temp = temp->next;
         }
-        prev->next = curr->next;
-        return head;
+        // initialize fast as head to iterate again from first node
+        fast = head;
+        // this loop continue till fast ka next temp ke eqaul nahi ho jata
+        while(fast->next != temp) {
+            fast = fast->next;
+        }
+        // now we point point fast ka next to temp ka next to remove temp
+        fast->next = temp->next;
+        // making temp ka next as null as it is no longer needed
+        temp->next = NULL;
+
+        // returning the result
+       return head;
     }
     }
 };
