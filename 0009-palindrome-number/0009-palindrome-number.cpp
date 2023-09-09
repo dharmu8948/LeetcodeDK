@@ -3,12 +3,12 @@ public:
     bool isPalindrome(int x) {
         if(x<0)
           return false;
-        string str = to_string(x);
-        int n = str.size();
-        for(int i=0,j=n-1;i<j;i++,j--) {
-            if(str[i] != str[j])
-              return false;
+        long long int rev = 0;
+        int n = x;
+        while(x>0) {
+            rev = rev*10 + x%10;
+            x = x/10;
         }
-        return true;
+        return n==rev;
     }
 };
