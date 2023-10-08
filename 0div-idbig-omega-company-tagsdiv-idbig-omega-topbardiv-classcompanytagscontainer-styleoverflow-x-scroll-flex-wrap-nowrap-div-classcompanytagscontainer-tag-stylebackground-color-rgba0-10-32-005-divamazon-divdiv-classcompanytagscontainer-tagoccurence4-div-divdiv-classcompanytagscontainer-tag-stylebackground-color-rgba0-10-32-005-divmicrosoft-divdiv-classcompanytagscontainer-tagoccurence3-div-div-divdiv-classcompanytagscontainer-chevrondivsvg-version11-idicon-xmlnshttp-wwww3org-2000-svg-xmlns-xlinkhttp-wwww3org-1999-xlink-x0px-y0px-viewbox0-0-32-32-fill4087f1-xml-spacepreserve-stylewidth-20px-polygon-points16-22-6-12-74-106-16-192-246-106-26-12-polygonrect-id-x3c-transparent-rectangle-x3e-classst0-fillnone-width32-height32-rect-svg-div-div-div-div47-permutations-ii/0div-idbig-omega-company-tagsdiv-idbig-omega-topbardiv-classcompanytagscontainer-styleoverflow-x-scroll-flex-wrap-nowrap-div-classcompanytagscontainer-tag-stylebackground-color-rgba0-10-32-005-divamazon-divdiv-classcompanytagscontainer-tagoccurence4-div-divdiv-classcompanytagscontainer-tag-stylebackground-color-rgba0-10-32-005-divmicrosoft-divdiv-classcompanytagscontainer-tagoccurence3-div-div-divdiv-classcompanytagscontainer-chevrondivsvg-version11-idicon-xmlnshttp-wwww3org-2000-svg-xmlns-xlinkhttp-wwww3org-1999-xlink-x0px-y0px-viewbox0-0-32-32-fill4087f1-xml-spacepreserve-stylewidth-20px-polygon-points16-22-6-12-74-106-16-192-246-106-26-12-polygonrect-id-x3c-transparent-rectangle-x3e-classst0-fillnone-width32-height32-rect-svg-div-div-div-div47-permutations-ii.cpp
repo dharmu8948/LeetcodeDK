@@ -1,31 +1,30 @@
 class Solution {
 public:
-    void permuteUnique_Helper(vector<int>& nums, set<vector<int>>& set, vector<int> temp, int index){
+    void permuteUnique_Helper(vector<int>& nums, vector<vector<int>>& output, int index){
         // base case
         if(index == nums.size()){
-            set.insert(temp);
+            output.push_back(nums);
             return;
         }
-        
-        for(int i=index; i<temp.size(); i++){
+        unordered_map<int, bool> visited;
+        for(int i=index; i<nums.size(); i++){
+            if(visited.find(nums[i]) != visited.end()) {
+                continue;
+            }
+            visited[nums[i]] = true;
             // ek case solve
-            swap(temp[index], temp[i]);
+            swap(nums[index], nums[i]);
             // baki permutation
-            permuteUnique_Helper(nums, set, temp, index+1);
+            permuteUnique_Helper(nums, output, index+1);
+            // Since we modifying main array so backtracking will required
+             swap(nums[index], nums[i]);
         }
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
         vector<vector<int>> output;
-        vector<int> temp = nums;
-        // sorting it get unique set
-        sort(temp.begin(), temp.end());
-        // created set to avoid the duplicate collections
-        set<vector<int>> set;
-        permuteUnique_Helper(nums, set, temp, 0);
-        // till now we avoided the duplicacy and and return back in return type of the method 
-        for(auto it : set){
-            output.push_back(it);
-        }
+       
+        permuteUnique_Helper(nums, output, 0);
+       
         return output;
     }
 };
