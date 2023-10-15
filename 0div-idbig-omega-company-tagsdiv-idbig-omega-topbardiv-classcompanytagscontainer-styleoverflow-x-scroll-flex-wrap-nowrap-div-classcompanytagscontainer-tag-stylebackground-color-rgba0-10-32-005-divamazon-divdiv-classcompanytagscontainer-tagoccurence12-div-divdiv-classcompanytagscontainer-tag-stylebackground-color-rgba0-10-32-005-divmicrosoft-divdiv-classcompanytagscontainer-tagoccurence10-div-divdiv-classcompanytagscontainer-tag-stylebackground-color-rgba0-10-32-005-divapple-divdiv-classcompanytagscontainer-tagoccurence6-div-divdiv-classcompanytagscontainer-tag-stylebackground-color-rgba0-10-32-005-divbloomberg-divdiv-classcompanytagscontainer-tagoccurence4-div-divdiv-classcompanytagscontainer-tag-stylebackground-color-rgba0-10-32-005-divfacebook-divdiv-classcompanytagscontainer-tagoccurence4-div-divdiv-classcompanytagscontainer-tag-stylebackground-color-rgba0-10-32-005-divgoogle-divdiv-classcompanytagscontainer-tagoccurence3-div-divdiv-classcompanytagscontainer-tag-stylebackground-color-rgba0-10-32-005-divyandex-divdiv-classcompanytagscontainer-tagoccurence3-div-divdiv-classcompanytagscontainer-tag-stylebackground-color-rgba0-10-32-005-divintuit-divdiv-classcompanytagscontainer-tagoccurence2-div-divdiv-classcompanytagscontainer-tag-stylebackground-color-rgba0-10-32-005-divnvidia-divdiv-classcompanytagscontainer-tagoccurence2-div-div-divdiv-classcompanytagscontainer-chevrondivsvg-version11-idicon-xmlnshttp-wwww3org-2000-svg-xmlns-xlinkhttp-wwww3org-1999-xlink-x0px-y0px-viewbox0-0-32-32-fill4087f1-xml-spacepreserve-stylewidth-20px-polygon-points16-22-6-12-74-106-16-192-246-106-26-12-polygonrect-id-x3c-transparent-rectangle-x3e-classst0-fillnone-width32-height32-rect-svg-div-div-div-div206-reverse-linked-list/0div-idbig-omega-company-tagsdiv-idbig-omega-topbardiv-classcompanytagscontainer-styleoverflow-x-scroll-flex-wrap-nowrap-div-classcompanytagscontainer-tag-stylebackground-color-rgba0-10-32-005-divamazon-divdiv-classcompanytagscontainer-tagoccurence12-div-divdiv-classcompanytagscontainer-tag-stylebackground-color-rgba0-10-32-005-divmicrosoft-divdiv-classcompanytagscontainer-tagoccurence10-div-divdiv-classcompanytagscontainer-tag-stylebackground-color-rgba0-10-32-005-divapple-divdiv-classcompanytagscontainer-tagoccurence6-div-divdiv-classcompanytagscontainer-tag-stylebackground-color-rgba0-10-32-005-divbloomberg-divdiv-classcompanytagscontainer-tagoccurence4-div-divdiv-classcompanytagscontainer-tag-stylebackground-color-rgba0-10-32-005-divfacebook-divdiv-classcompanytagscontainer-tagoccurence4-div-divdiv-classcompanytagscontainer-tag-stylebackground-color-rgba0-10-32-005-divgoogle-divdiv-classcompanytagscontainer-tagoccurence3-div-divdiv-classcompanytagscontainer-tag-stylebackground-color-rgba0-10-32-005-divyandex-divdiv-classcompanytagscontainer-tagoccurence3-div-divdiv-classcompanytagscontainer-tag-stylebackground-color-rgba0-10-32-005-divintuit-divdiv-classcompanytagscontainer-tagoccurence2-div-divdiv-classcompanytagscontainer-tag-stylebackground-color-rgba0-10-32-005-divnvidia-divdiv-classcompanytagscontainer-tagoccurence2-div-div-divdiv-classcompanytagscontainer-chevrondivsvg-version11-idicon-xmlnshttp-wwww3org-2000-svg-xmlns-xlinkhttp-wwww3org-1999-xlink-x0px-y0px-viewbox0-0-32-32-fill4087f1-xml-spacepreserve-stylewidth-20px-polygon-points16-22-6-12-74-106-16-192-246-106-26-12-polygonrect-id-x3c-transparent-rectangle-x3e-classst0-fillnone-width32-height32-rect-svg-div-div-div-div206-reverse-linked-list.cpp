@@ -10,12 +10,25 @@
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
+    void solveWithRec(ListNode* &head, ListNode* curr, ListNode* prev) {
+        if(curr == NULL) {
+            head = prev;
+            return;
+        }
         
+        ListNode* forward = curr->next;
+        solveWithRec(head, forward, curr);
+        curr->next = prev;
+    
+    }
+    ListNode* reverseList(ListNode* head) {
+       
         if(!head || !head->next)
              return head;
         ListNode* prev = NULL;
         ListNode*curr = head;
+         // Approach 1(Iterative Approach)
+        /*
         ListNode* forward = NULL;
         while(curr) {
             forward = curr->next;
@@ -24,5 +37,9 @@ public:
             curr = forward;
         }
         return prev;
+        */
+        // Approach 2 (using Recusrion)
+        solveWithRec(head, curr, prev);
+        return head;
     }
 };
