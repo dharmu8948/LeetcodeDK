@@ -1,20 +1,16 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        if (ransomNote.length() > magazine.length()) return false;
-        map<char, int> mp;
-        for(int i=0;i<ransomNote.size();i++) {
-            mp[ransomNote[i]]++;
-        }
-        for(int i=0;i<magazine.size();i++) {
-            if(mp[magazine[i]] > 0) {
-                mp[magazine[i]]--;
-            }
-        }
-        for( auto m : mp) {
-            if(m.second != 0) return false;
-        }
-        cout<<endl<<endl;
-        return true;
+         // Initialize an array of count with the size 26...
+        int counter[26] = {0};
+        // Traverse a loop through the entire String of magazine where char ch stores the char at the index of magazine...
+        for(char ch : magazine)
+            counter[ch - 'a']++;
+        // Run another for loop for ransomNote...
+        for(char ch : ransomNote)
+            // If the charachter doesn't exists in magazine for ransomNote, we return false...
+            if(counter[ch - 'a']-- <= 0)
+                return false;
+        return true;        // If nothing goes wrong, return true...
     }
 };
