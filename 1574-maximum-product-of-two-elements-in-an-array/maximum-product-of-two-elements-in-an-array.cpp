@@ -2,8 +2,19 @@ class Solution {
 public:
     int maxProduct(vector<int>& nums) {
         int n = nums.size();
-       sort(nums.begin(), nums.end());
-       int ans =  (nums[n-1]-1)*(nums[n-2]-1);
-       return ans;
+        int maxi1 = INT_MIN;
+        int maxi2 = INT_MIN;
+        int index = 0;
+      for(int i=0;i<n;i++) {
+          if(maxi1<nums[i]) {
+              index = i;
+              maxi1 = nums[i];
+          } 
+      }
+      for(int i=0;i<n;i++) {
+          if(maxi2<nums[i] && i != index) maxi2 = nums[i];
+      }
+      cout<<"maxi1:: "<<maxi1<<" maxi2:: "<<maxi2<<endl;
+      return (maxi1-1)*(maxi2-1);
     }
 };
