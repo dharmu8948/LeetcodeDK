@@ -1,21 +1,20 @@
 class Solution {
 public:
     int minSteps(string s, string t) {
-        map<char, int> mp1, mp2;
-        for(char ch : s) {
-            mp1[ch]++;
+      sort(s.begin(),s.end());
+        sort(t.begin(),t.end());
+
+        int top=0,bottom=0;
+        int count=0;
+        while( top<s.size() && bottom<s.size()){
+            if(s[top]==t[bottom]){
+              count++;
+              top++;
+              bottom++;  
+            } 
+            else if(s[top]<t[bottom]) top++;
+            else if(s[top]>t[bottom]) bottom++;
         }
-        for(char ch : t) {
-            if(mp1.contains(ch)) {
-                mp1[ch]--;
-            }
-        }
-        int count = 0;
-        for(auto m : mp1) {
-            if(m.second>0) {
-                count += m.second;
-            }
-        }
-        return count;
+        return s.size()-count;
     }
 };
