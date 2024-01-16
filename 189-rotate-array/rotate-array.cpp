@@ -10,11 +10,13 @@ public:
         }
     }
     void rotate(vector<int>& nums, int k) {
-        if(k>nums.size())
-            k=k%nums.size();
-        int n = nums.size()-k;
-       rev(nums, 0, n-1);
-       rev(nums, n, nums.size()-1);
-       rev(nums, 0, nums.size()-1);
+        vector<int>v;
+        int n=nums.size();
+        k=k%n;   // k is greater than n,this operation will be used
+        for(int i=n-k;i<n;i++)
+            v.push_back(nums[i]);
+        for(int i=0;i<n-k;i++)
+            v.push_back(nums[i]);
+        swap(nums,v); 
     }
 };
