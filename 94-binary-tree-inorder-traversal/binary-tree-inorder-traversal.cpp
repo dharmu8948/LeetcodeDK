@@ -11,15 +11,33 @@
  */
 class Solution {
 public:
-  vector<int> ans;
+  
     vector<int> inorderTraversal(TreeNode* root) {
-        
-        if(root!=NULL) {
-            inorderTraversal(root->left);
-            ans.push_back(root->val);
-            inorderTraversal(root->right);
-        }
-        
-        return ans;
+      // Using Morris Traversal
+      vector<int> ans;
+      TreeNode* curr = root;
+      while(curr) {
+          if(!curr->left) {
+              ans.push_back(curr->val);
+              curr = curr->right;
+          }else if(curr->left){
+              // find inorder predecessor
+              TreeNode* pred = curr->left;
+              while(pred->right != curr && pred->right) {
+                  pred= pred->right;
+              }
+              // if pred right node is null, then establish the link from pred  to curr
+              if(pred->right == NULL) {
+                  pred->right = curr;
+                  curr = curr->left;
+              }else {
+                  // left is alresdy visited, go right after visiting the curr node, while removing the link
+                  pred->right = NULL;
+                  ans.push_back(curr->val);
+                  curr = curr->right;
+              }
+          }
+      }
+      return ans;  
     }
 };
