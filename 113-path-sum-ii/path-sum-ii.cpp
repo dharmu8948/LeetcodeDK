@@ -11,40 +11,37 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root, int&targetSum, int&currSum, vector<int>&path, vector<vector<int>>&ans) {
+    void pathSumHelper(TreeNode* root, int &targetSum, vector<vector<int>> &ans,vector<int>&path, int &currSum) {
         // base case
-        if(root == NULL) return;
-        // leaf node
-        if(root->left == NULL && root->right == NULL) {
-            // include curr Node
+        if(!root) return ;
+        // check for leaf node
+        if(!root->left && !root->right) {
+            // include curr
             path.push_back(root->val);
             currSum += root->val;
-            // check for targetSum
-            if(currSum == targetSum) {
+            // if currSum == targetSum then store it into ans var
+            if(currSum == targetSum){
                 ans.push_back(path);
-               
             }
-              // exclude the curr Node
-                path.pop_back();
-                currSum -= root->val;
-                return ;
-        }
-         //include curr node
-            path.push_back(root->val);
-            currSum += root->val;
-            // recursive call
-            solve(root->left, targetSum,currSum,path, ans);
-            solve(root->right, targetSum,currSum,path, ans);
-
-            // backtrack
-            path.pop_back();
+            // exclude curr
+             path.pop_back();
             currSum -= root->val;
+        }
+        // process the othan than leaf node
+        // include curr node
+        path.push_back(root->val);
+        currSum += root->val;
+        pathSumHelper(root->left, targetSum, ans, path, currSum);
+        pathSumHelper(root->right, targetSum, ans, path, currSum);
+        // exclude curr node
+        path.pop_back();
+        currSum -= root->val;
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>> ans;
-        int sum  = 0;
         vector<int> temp;
-        solve(root, targetSum, sum, temp, ans);
+        int sum = 0;
+        pathSumHelper(root, targetSum, ans, temp, sum);
         return ans;
     }
 };
