@@ -1,21 +1,22 @@
 class Solution {
 public:
     int sumSubarrayMins(vector<int>& arr) {
-        int n = arr.size();
-       vector<long> s, sums(n,0);
-        long j, res=0, mod = 1000000007;
-        for (int i = 0; i < n; ++i)
-        {
-            while (!s.empty() && arr[s.back()] > arr[i])
-                s.pop_back();
-            j = !s.empty() ? s.back() : -1;
-            
-            sums[i] = ((j>=0?sums[j]:0) + (i-j)*arr[i]) % mod;
-            s.push_back(i);
+      int n=arr.size(), mod=1e9+7;
+        vector<long long> dp(n, -1); // dp[i]=sum of subarrays ending at i
+        vector<int> stack;
+        long long ans=0;
+        for(int i=0; i<n; i++){
+            //monotonic increasing stack storing the index
+            while(!stack.empty() && arr[i]<=arr[stack.back()])
+                stack.pop_back();
+            if (!stack.empty()){
+                int j=stack.back();
+                dp[i]=dp[j]+arr[i]*(i-j);
+            }
+            else dp[i]=arr[i]*(i+1);
+            stack.push_back(i);
+            ans=(ans+dp[i])%mod;
         }
-
-        for (int i = 0; i < sums.size(); ++i)
-            res = (res + sums[i]) % mod;
-        return res;
+        return ans;    
     }
 };
