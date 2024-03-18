@@ -10,20 +10,21 @@
  * };
  */
 class Solution {
-public:
-    vector<int> res;
-    void inorder(TreeNode* root) {
-        if(root != NULL) {
-            inorder(root->left);
-            res.push_back(root->val);
-            inorder(root->right);
-        }
+    bool validateBst(TreeNode* root, long min, long max) {
+        if (root == NULL)
+            return true;
+
+        if (root->val <= min || root->val >= max)
+            return false;
+
+        return validateBst(root->left, min, root->val) &&
+               validateBst(root->right, root->val, max);
     }
+
+public:
     bool isValidBST(TreeNode* root) {
-       inorder(root); 
-       for(int i=0;i<res.size()-1;i++) {
-        if(res[i]>=res[i+1]) return false;
-       }
-       return true;
+        if (root == NULL)
+            return true;
+        return validateBst(root, LONG_MIN, LONG_MAX);
     }
 };
