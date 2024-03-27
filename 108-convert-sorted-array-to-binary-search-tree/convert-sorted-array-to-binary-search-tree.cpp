@@ -11,17 +11,16 @@
  */
 class Solution {
 public:
-    TreeNode* sortedArrayToBSTHelper(const vector<int>& nums, int start, int end) {
-         if (start > end) {
-            return nullptr;
-        }
-        int mid = start + (end - start) / 2;
+    TreeNode* sortedArrayToBST_Helper(vector<int>& nums, int start, int end) {
+        if(start>end) return NULL;
+        int mid = (start+end)/2;
         TreeNode* root = new TreeNode(nums[mid]);
-        root->left = sortedArrayToBSTHelper(nums, start, mid - 1);
-        root->right = sortedArrayToBSTHelper(nums, mid + 1, end);
+        root->left = sortedArrayToBST_Helper(nums, start, mid-1);
+        root->right = sortedArrayToBST_Helper(nums, mid+1, end);
         return root;
     }
     TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return sortedArrayToBSTHelper(nums, 0, nums.size()-1);
+        int start = 0, end = nums.size()-1;
+        return sortedArrayToBST_Helper(nums,start, end);
     }
 };
