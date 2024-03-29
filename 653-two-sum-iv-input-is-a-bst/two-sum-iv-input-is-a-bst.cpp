@@ -11,24 +11,27 @@
  */
 class Solution {
 public:
-    vector<int> arr;
-    void inorder(TreeNode* root) {
-        if(root!= NULL) {
-            inorder(root->left);
-            arr.push_back(root->val);
-            inorder(root->right);
-        }
+    void inorder(TreeNode* root,vector<int>&arr) {
+        if(!root) return;
+        inorder(root->left,arr);
+        arr.push_back(root->val);
+        inorder(root->right,arr);
     }
     bool findTarget(TreeNode* root, int k) {
-        inorder(root);
-
-        int n = arr.size();
-        int i=0, j=n-1;
+        vector<int> arr;
+        if(root == NULL) return true;
+        // sort the array using inorder(Since in BST inorder triversal will make the elements in sorted manner and stored the elements inot arr)
+        inorder(root, arr);
+        //apply two pointer algo to get the target
+        int i = 0, j = arr.size()-1;
         while(i<j) {
             int sum = arr[i] + arr[j];
             if(sum == k) return true;
-            else if(sum < k) i++;
-            else if(sum > k) j--;
+            else if(sum>k) {
+                j--;
+            }else {
+                i++;
+            }
         }
         return false;
     }
