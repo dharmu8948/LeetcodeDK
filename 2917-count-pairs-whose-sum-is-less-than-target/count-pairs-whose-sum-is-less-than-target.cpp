@@ -9,9 +9,7 @@ public:
             return (nums[0] + nums[1])<target;
         }
         while(i<n) {
-           // cout<<i<<"  "<<j<<"  "<<nums[i]+nums[j]<<endl<<endl;
             if(j < n) {
-                cout<<j<<"  "<<n<<endl;
                 if((nums[i] + nums[j]) < target) {
                     count++;
                 }
