@@ -11,7 +11,7 @@
 class Solution {
 public:
     int getDecimalValue(ListNode* head) {
-        string str;
+         string str;
         ListNode* temp = head;
         while(temp) {
             str += to_string(temp->val);
