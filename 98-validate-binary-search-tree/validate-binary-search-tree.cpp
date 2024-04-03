@@ -10,7 +10,8 @@
  * };
  */
 class Solution {
-    bool validateBst(TreeNode* root, long min, long max) {
+public:
+     bool validateBst(TreeNode* root, long min, long max) {
         if (root == NULL)
             return true;
 
