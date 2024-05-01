@@ -2,15 +2,19 @@ class Solution {
 public:
     string reversePrefix(string word, char ch) {
         string str;
-        for(int i=0;i<word.size();i++) {
+        int i=0;
+        for(;i<word.size();i++) {
             if(word[i] == ch) {
                 str += ch;
-                reverse(str.begin(), str.end());
-                str += word.substr(i+1, word.size());
-                return str;
+                break;
             }else {
                 str += word[i];
             }
+        }
+        if(i<word.size()) {
+            reverse(str.begin(), str.end());
+            str += word.substr(i+1, word.size());
+            return str;
         }
         return str;
     }
