@@ -11,7 +11,12 @@
 class Solution {
 public:
     ListNode* removeNodes(ListNode* head) {
-        if(!head || !head->next) return head;
+        // Recursive Approach
+        if (head == nullptr) return NULL;
+        head->next = removeNodes(head->next);
+        return (head->next && head->val < head->next->val) ? head->next : head;
+        // Brute force Approach
+    /*    if(!head || !head->next) return head;
         vector<int> arr;
         vector<int> help;
         ListNode* temp = head;
@@ -35,5 +40,6 @@ public:
             temp2 = temp2->next;
         }
         return ans->next;
+        */
     }
 };
