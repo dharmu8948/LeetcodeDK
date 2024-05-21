@@ -5,12 +5,12 @@ public:
             ans.push_back(temp);
             return ;
         }
-        // exclude
-       solve(nums, temp, ans,index+1);
-
-       // include
-       temp.push_back(nums[index]);
-       solve(nums, temp, ans,index+1);
+        // exclude the character
+        solve(nums, temp, ans, index+1);
+        // push value into vactor
+        temp.push_back(nums[index]);
+        // include
+         solve(nums, temp, ans, index+1);
     }
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> ans;
