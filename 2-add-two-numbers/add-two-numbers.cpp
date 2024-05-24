@@ -11,34 +11,41 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* newNode = new ListNode(-1);
-        ListNode* temp = newNode;
-        int carry = 0;
-        while(l1 && l2) {
-            int sum = l1->val + l2->val + carry;
+        ListNode* temp1 = l1;
+        ListNode* temp2 = l2;
+        ListNode* main = new ListNode(-1);
+        ListNode* head = main;
+        int actualSum = 0, carry = 0;
+        while(temp1 && temp2) {
+            int sum = temp1->val + temp2->val + carry;
+            actualSum = sum>9 ? sum%10 : sum;
             carry = sum/10;
-            temp->next = new ListNode(sum%10);
-            temp = temp->next;
-            l1 = l1->next;
-            l2 = l2->next;
-        }
-        while(l1) {
-            int sum = l1->val + carry;
-            carry = sum/10;
-            temp->next = new ListNode(sum%10);
-            temp = temp->next;
-            l1 = l1->next;
-        }
-        while(l2) {
-             int sum = l2->val + carry;
-            carry = sum/10;
-            temp->next = new ListNode(sum%10);
-            temp = temp->next;
-            l2 = l2->next;
+            head->next = new ListNode(actualSum);
+            head = head->next;
+            temp1 = temp1->next;
+            temp2 = temp2->next;        }
+        if(temp1) {
+            while(temp1) {
+                int sum = temp1->val + carry;
+                actualSum = sum>9 ? sum%10 : sum;
+                carry = sum/10;
+                head->next = new ListNode(actualSum);
+                head = head->next;
+                temp1 = temp1->next;
+            }
+        }else if(temp2) {
+            while(temp2) {
+                int sum = temp2->val + carry;
+                actualSum = sum>9 ? sum%10 : sum;
+                carry = sum/10;
+                head->next = new ListNode(actualSum);
+                head = head->next;
+                temp2 = temp2->next;
+            }
         }
         if(carry) {
-            temp->next = new ListNode(carry);
+            head->next = new ListNode(carry);
         }
-        return newNode->next;
+        return main->next;
     }
 };
