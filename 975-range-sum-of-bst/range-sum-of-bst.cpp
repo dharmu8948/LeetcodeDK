@@ -11,11 +11,15 @@
  */
 class Solution {
 public:
+    void rangeSumBSTHelper(TreeNode* root, int low, int high, int &sum) {
+        if(!root) return ;
+        if(root->val>=low && root->val <=high) sum += root->val;
+        rangeSumBSTHelper(root->left, low, high, sum);
+        rangeSumBSTHelper(root->right, low, high, sum);
+    }
     int rangeSumBST(TreeNode* root, int low, int high) {
-        if(root == NULL) return 0;
-        if(root->val >= low && root->val <= high) {
-            return root->val + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
-        }
-        return  rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);
+        int sum = 0;
+        rangeSumBSTHelper(root, low, high, sum);
+        return sum;
     }
 };
