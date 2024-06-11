@@ -5,7 +5,7 @@ public:
         for(int i=0;i<k;i++) {
             minH.push(nums[i]);
         }
-        for(int i = k;i<nums.size();i++) {
+        for(int i=k;i<nums.size();i++) {
             if(minH.top() < nums[i]) {
                 minH.pop();
                 minH.push(nums[i]);
