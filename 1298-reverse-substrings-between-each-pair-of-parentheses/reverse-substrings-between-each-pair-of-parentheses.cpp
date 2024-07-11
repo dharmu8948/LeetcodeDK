@@ -1,34 +1,30 @@
 class Solution {
 public:
     string reverseParentheses(string s) {
-        int i = 0, j = s.size() - 1;
 
-        stack<char> stack;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s[i];
-
-            if (c == ')') {
-                std::string rev = "";
-                while (!stack.empty() && stack.top() != '(') {
-                    rev += stack.top();
-                    stack.pop();
+        int n = s.size();
+        stack<char> st;
+        for(int i=0;i<n;i++) {
+            if(s[i] == ')') {
+                string curr = "";
+                while(!st.empty() && st.top() != '(') {
+                    curr += st.top();
+                    st.pop();
                 }
-                if (!stack.empty()) {
-                    stack.pop(); // pop the opening bracket
+                st.pop();
+                for(auto &it : curr) {
+                    st.push(it);
                 }
-                for (int j = 0; j < rev.length(); j++) {
-                    stack.push(rev[j]);
-                }
-            } else {
-                stack.push(c);
+            }else {
+                st.push(s[i]);
             }
         }
-
-        string result = "";
-        while (!stack.empty()) {
-            result = stack.top() + result;
-            stack.pop();
+        string ans = "";
+        while(!st.empty()) {
+            ans += st.top();
+            st.pop();
         }
-        return result;
+        reverse(ans.begin(), ans.end());
+        return ans;
     }
 };
