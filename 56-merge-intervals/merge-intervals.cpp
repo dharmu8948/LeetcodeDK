@@ -10,6 +10,7 @@ public:
             if(ans.empty() || arr[i][0] > ans.back()[1]) {
                 ans.push_back(arr[i]);
             }else {
+                // just update the second index if it is greater
                 ans.back()[1] = max(arr[i][1], ans.back()[1]);
             }
         }
